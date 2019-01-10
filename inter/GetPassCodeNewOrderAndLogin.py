@@ -17,16 +17,16 @@ def getPassCodeNewOrderAndLogin(session, imgType):
     else:
         codeImgUrl = copy.deepcopy(session.urls["codeImgByOrder"])
         codeImgUrl["req_url"] = codeImgUrl["req_url"].format(random.random())
-    print (u"下载验证码...")
+    print ("下载验证码...")
     img_path = './tkcode.png'
     result = session.httpClint.send(codeImgUrl)
     try:
         if isinstance(result, dict):
-            print(u"下载验证码失败, 请手动检查是否ip被封，或者重试，请求地址：https://kyfw.12306.cn{}".format(codeImgUrl.get("req_url")))
+            print("下载验证码失败, 请手动检查是否ip被封，或者重试，请求地址：https://kyfw.12306.cn{}".format(codeImgUrl.get("req_url")))
             return False
         else:
-            print(u"下载验证码成功")
+            print("下载验证码成功")
             open(img_path, 'wb').write(result)
             return result
     except OSError:
-        print (u"验证码下载失败，可能ip被封，确认请手动请求: {0}".format(codeImgUrl))
+        print ("验证码下载失败，可能ip被封，确认请手动请求: {0}".format(codeImgUrl))

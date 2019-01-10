@@ -18,7 +18,7 @@ def sendEmail(msg):
         try:
             sender = email_conf["email_conf"]["email"]
             receiver = email_conf["email_conf"]["notice_email_list"]
-            subject = '恭喜，您已订票成功'
+            subject = 'yo12306订票成功'
             username = email_conf["email_conf"]["username"]
             password = email_conf["email_conf"]["password"]
             host = email_conf["email_conf"]["host"]
@@ -34,9 +34,9 @@ def sendEmail(msg):
             smtp.login(username, password)
             smtp.sendmail(sender, receiver.split(","), msg.as_string())
             smtp.quit()
-            print(u"邮件已通知, 请查收")
+            print("邮件已通知, 请查收")
         except Exception as e:
-            print(u"邮件配置有误{}".format(e))
+            print("邮件配置有误{}".format(e))
     else:
         pass
 

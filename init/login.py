@@ -36,7 +36,7 @@ class GoLogin:
         }
         fresult = self.session.httpClint.send(codeCheck, codeCheckData)
         if "result_code" in fresult and fresult["result_code"] == "4":
-            print (u"验证码通过,开始登录..")
+            print ("验证码通过,开始登录..")
             return True
         else:
             if "result_message" in fresult:
@@ -59,7 +59,7 @@ class GoLogin:
         }
         tresult = self.session.httpClint.send(logurl, logData)
         if 'result_code' in tresult and tresult["result_code"] == 0:
-            print (u"登录成功")
+            print ("登录成功")
             tk = self.auth()
             if "newapptk" in tk and tk["newapptk"]:
                 return tk["newapptk"]
@@ -67,11 +67,11 @@ class GoLogin:
                 return False
         elif 'result_message' in tresult and tresult['result_message']:
             messages = tresult['result_message']
-            if messages.find(u"密码输入错误") is not -1:
+            if messages.find("密码输入错误") is not -1:
                 raise UserPasswordException("{0}".format(messages))
             else:
-                print (u"登录失败: {0}".format(messages))
-                print (u"尝试重新登陆")
+                print ("登录失败: {0}".format(messages))
+                print ("尝试重新登陆")
                 return False
         else:
             return False
@@ -82,14 +82,14 @@ class GoLogin:
         :return:
         """
         if not uamtk:
-            return u"权限校验码不能为空"
+            return "权限校验码不能为空"
         else:
             uamauthclientUrl = self.session.urls["uamauthclient"]
             data = {"tk": uamtk}
             uamauthclientResult = self.session.httpClint.send(uamauthclientUrl, data)
             if uamauthclientResult:
                 if "result_code" in uamauthclientResult and uamauthclientResult["result_code"] == 0:
-                    print(u"欢迎 {} 登录".format(uamauthclientResult["username"]))
+                    print("欢迎 {} 登录".format(uamauthclientResult["username"]))
                     return True
                 else:
                     return False
@@ -108,10 +108,10 @@ class GoLogin:
         if self.is_auto_code and self.auto_code_type == 1:
             balance = DamatuApi(_get_yaml()["auto_code_account"]["user"], _get_yaml()["auto_code_account"]["pwd"]).getBalance()
             if int(balance) < 40:
-                raise balanceException(u'余额不足，当前余额为: {}'.format(balance))
+                raise balanceException('余额不足，当前余额为: {}'.format(balance))
         user, passwd = _get_yaml()["set"]["12306account"][0]["user"], _get_yaml()["set"]["12306account"][1]["pwd"]
         if not user or not passwd:
-            raise UserPasswordException(u"温馨提示: 用户名或者密码为空，请仔细检查")
+            raise UserPasswordException("温馨提示: 用户名或者密码为空，请仔细检查")
         login_num = 0
         while True:
             result = getPassCodeNewOrderAndLogin(session=self.session, imgType="login")

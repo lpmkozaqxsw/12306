@@ -90,18 +90,17 @@ class select:
 
         # 代理模式
         is_proxy = ticket_info_config["is_proxy"]
-
-        print(u"*" * 50)
-        print(u"检查当前python版本为：{}，目前版本只支持2.7.10-2.7.15".format(sys.version.split(" ")[0]))
-        print(u"12306刷票小助手，最后更新于2019.01.08，请勿作为商业用途，交流群号：286271084(已满)， 2群：649992274(已满)，请加3群(未满)， 群号：632501142、4群(未满)， 群号：606340519")
+        print("*" * 50)
+        print("检查当前python版本为：{}，目前版本只支持2.7.10-2.7.15".format(sys.version.split(" ")[0]))
+        print("12306刷票小助手，最后更新于2019.01.08，请勿作为商业用途，交流群号：286271084(已满)， 2群：649992274(已满)，请加3群(未满)， 群号：632501142、4群(未满)， 群号：606340519")
         if is_by_time:
-            method_notie = u"购票方式：根据时间区间购票\n可接受最早出发时间：{0}\n可接受最晚抵达时间：{1}\n可接受最长旅途时间：{2}\n可接受列车类型：{3}\n" \
+            method_notie = "购票方式：根据时间区间购票\n可接受最早出发时间：{0}\n可接受最晚抵达时间：{1}\n可接受最长旅途时间：{2}\n可接受列车类型：{3}\n" \
                 .format(minutes_to_time(departure_time), minutes_to_time(arrival_time), minutes_to_time(take_time),
                         " , ".join(train_types))
         else:
-            method_notie = u"购票方式：根据候选车次购买\n候选购买车次：{0}".format(",".join(station_trains))
-        print (u"当前配置：\n出发站：{0}\n到达站：{1}\n乘车日期：{2}\n坐席：{3}\n是否有票优先提交：{4}\n乘车人：{5}\n" \
-               u"刷新间隔: 随机(1-3S)\n{6}\n僵尸票关小黑屋时长: {7}\n下单接口: {8}\n下单模式: {9}\n预售踩点时间:{10} ".format \
+            method_notie = "购票方式：根据候选车次购买\n候选购买车次：{0}".format(",".join(station_trains))
+        print ("当前配置：\n出发站：{0}\n到达站：{1}\n乘车日期：{2}\n坐席：{3}\n是否有票优先提交：{4}\n乘车人：{5}\n" \
+               "刷新间隔: 随机(1-3S)\n{6}\n僵尸票关小黑屋时长: {7}\n下单接口: {8}\n下单模式: {9}\n预售踩点时间:{10} ".format \
                 (
                 from_station,
                 to_station,
@@ -115,7 +114,7 @@ class select:
                 order_model,
                 open_time,
             ))
-        print (u"*" * 50)
+        print ("*" * 50)
         return from_station, to_station, station_dates, set_type, is_more_ticket, ticke_peoples, station_trains, \
                ticket_black_list_time, order_type, is_by_time, train_types, departure_time, arrival_time, take_time, \
                order_model, open_time, is_proxy
@@ -157,9 +156,9 @@ class select:
             rep = http.send(urls)
             if rep and "message" not in rep and (datetime.datetime.now() - start_time).microseconds / 1000 < 500:
                 if cdn[i].replace("\n", "") not in self.cdn_list:  # 如果有重复的cdn，则放弃加入
-                    # print(u"加入cdn {0}".format(cdn[i].replace("\n", "")))
+                    # print("加入cdn {0}".format(cdn[i].replace("\n", "")))
                     self.cdn_list.append(cdn[i].replace("\n", ""))
-        print(u"所有cdn解析完成...")
+        print("所有cdn解析完成...")
 
     def cdn_certification(self):
         """
@@ -170,16 +169,16 @@ class select:
             CDN = CDNProxy()
             all_cdn = CDN.open_cdn_file()
             if all_cdn:
-                # print(u"由于12306网站策略调整，cdn功能暂时关闭。")
-                print(u"开启cdn查询")
-                print(u"本次待筛选cdn总数为{}, 筛选时间大约为5-10min".format(len(all_cdn)))
+                # print("由于12306网站策略调整，cdn功能暂时关闭。")
+                print("开启cdn查询")
+                print("本次待筛选cdn总数为{}, 筛选时间大约为5-10min".format(len(all_cdn)))
                 t = threading.Thread(target=self.cdn_req, args=(all_cdn,))
                 t.setDaemon(True)
                 # t2 = threading.Thread(target=self.set_cdn, args=())
                 t.start()
                 # t2.start()
             else:
-                raise ticketConfigException(u"cdn列表为空，请先加载cdn")
+                raise ticketConfigException("cdn列表为空，请先加载cdn")
 
     def main(self):
         autoSynchroTime()  # 同步时间
@@ -266,7 +265,7 @@ class select:
                             sor.sendSubmitOrderRequest()
                 else:
                     random_time = round(random.uniform(sleep_time_s, sleep_time_t), 2)
-                    print(u"正在第{0}次查询 随机停留时长：{6} 乘车日期: {1} 车次：{2} 查询无票 cdn轮询IP：{4}当前cdn总数：{5} 总耗时：{3}ms".format(num,
+                    print("正在第{0}次查询 随机停留时长：{6} 乘车日期: {1} 车次：{2} 查询无票 cdn轮询IP：{4}当前cdn总数：{5} 总耗时：{3}ms".format(num,
                                                                                                                 ",".join(
                                                                                                                     self.station_dates),
                                                                                                                 ",".join(
@@ -297,13 +296,13 @@ class select:
                 break
             except ValueError as e:
                 if e == "No JSON object could be decoded":
-                    print(u"12306接口无响应，正在重试")
+                    print("12306接口无响应，正在重试")
                 else:
                     print(e)
             except KeyError as e:
                 print(e)
             except TypeError as e:
-                print(u"12306接口无响应，正在重试 {0}".format(e))
+                print("12306接口无响应，正在重试 {0}".format(e))
             except socket.error as e:
                 print(e)
 

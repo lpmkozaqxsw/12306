@@ -15,8 +15,8 @@ def autoSynchroTime():
 
     hosts = ['ntp1.aliyun.com', 'ntp2.aliyun.com', 'ntp3.aliyun.com', 'ntp4.aliyun.com', 'cn.pool.ntp.org']
 
-    print(u"正在同步时间，请耐心等待30秒左右")
-    print(u"系统当前时间{}".format(str(datetime.datetime.now())[:22]))
+    print("正在同步时间，请耐心等待30秒左右")
+    print("系统当前时间{}".format(str(datetime.datetime.now())[:22]))
     system = platform.system()
     if system == "Windows":  # windows 同步时间未测试过，参考地址：https://www.jianshu.com/p/92ec15da6cc3
         for host in hosts:
@@ -32,7 +32,7 @@ def autoSynchroTime():
             sin = os.system('ntpdate {}'.format(host))
             if sin is 0:
                 break
-    print(u"同步后时间:{}".format(str(datetime.datetime.now())[:22]))
+    print("同步后时间:{}".format(str(datetime.datetime.now())[:22]))
 
 
 if __name__ == '__main__':

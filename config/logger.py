@@ -45,7 +45,7 @@ def log(msg, func = "info"):
 		logger.removeHandler(loggerHandler)
 		
 		fh = logging.FileHandler(getLogFile())
-		fm = logging.Formatter(u'[%(asctime)s][%(levelname)8s] --- %(message)s (%(filename)s:%(lineno)s)')
+		fm = logging.Formatter('[%(asctime)s][%(levelname)8s] --- %(message)s (%(filename)s:%(lineno)s)')
 		fh.setFormatter(fm)
 
 		logger.addHandler(fh)

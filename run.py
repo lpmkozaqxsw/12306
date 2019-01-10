@@ -1,6 +1,9 @@
 # -*- coding=utf-8 -*-
+
 from config.emailConf import sendEmail
 from init import select_ticket_info
+
+
 
 
 def run():
@@ -12,5 +15,5 @@ def Email():
 
 
 if __name__ == '__main__':
-    run()
-    # Email()
+    #run()
+    Email()
